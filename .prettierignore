@@ -1,0 +1,14 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore directories
+.bundle
+android
+ios
+node_modules
+vendor
+
+# Ignore auto-generated files
+Gemfile.lock
+package-lock.json
