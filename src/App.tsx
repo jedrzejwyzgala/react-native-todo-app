@@ -5,20 +5,20 @@
  * @format
  */
 
-import React from 'react';
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+import React from 'react'
+import { SafeAreaView, StatusBar, useColorScheme } from 'react-native'
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { MainNavigator } from './navigation/MainNavigator';
+import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { NavigationContainer } from '@react-navigation/native'
+import { MainNavigator } from './navigation/MainNavigator'
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     flex: 1,
-  };
+  }
 
   return (
     <NavigationContainer>
@@ -30,7 +30,7 @@ function App(): JSX.Element {
         <MainNavigator />
       </SafeAreaView>
     </NavigationContainer>
-  );
+  )
 }
 
-export default App;
+export default App
