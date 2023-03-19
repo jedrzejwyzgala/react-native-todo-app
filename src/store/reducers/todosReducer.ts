@@ -1,27 +1,31 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Todo } from '../../types/Todo'
 
-const todoAdded = createAction<Todo>('todos/todoAdded')
-const todoToggled = createAction<number>('todos/toggled')
+interface TodosState {
+  all: Array<Todo>
+}
 
-const todosReducer = createReducer(
-  {
-    all: [
-      { title: 'Take out trash', completed: false },
-      { title: 'Read a chapter of a book', completed: true },
-    ] as Array<Todo>,
-  },
-  (builder) => {
-    builder
-      .addCase(todoAdded, (state, action) => {
-        state.all.push(action.payload)
-      })
-      .addCase(todoToggled, (state, action) => {
-        const index = action.payload
-        const todo = state.all[index]
-        todo.completed = !todo.completed
-      })
-  },
-)
+const initialState: TodosState = {
+  all: [
+    { title: 'Take out trash', completed: false },
+    { title: 'Read a chapter of a book', completed: true },
+  ],
+}
 
-export default todosReducer
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState,
+  reducers: {
+    todoAdded: (state, action: PayloadAction<Todo>) => {
+      state.all.push(action.payload)
+    },
+    todoToggled: (state, action: PayloadAction<number>) => {
+      const index = action.payload
+      const todo = state.all[index]
+      todo.completed = !todo.completed
+    },
+  },
+})
+
+export const { todoAdded, todoToggled } = todosSlice.actions
+export default todosSlice.reducer

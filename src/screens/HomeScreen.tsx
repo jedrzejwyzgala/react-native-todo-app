@@ -8,8 +8,8 @@ import { TodoListItem } from '../components/todoListItem/TodoListItem'
 export const HomeScreen = () => {
   const todos = useSelector(selectAllTodos)
 
-  const renderTodo: ListRenderItem<Todo> = ({ item }) => (
-    <TodoListItem title={item.title} completed={item.completed} />
+  const renderTodo: ListRenderItem<Todo> = ({ item, index }) => (
+    <TodoListItem index={index} title={item.title} completed={item.completed} />
   )
 
   return (
