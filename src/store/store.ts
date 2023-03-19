@@ -1,15 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 import logger from 'redux-logger'
 
 import todosReducer from './reducers/todosReducer'
 
-const reducer = {
+const rootReducer = {
   todos: todosReducer,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const store = configureStore({
-  reducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV !== 'production',
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch
+
+export default store

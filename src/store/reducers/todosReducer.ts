@@ -6,7 +6,10 @@ const todoToggled = createAction<number>('todos/toggled')
 
 const todosReducer = createReducer(
   {
-    all: [] as Array<Todo>,
+    all: [
+      { title: 'Take out trash', completed: false },
+      { title: 'Read a chapter of a book', completed: true },
+    ] as Array<Todo>,
   },
   (builder) => {
     builder
