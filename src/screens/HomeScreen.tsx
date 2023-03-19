@@ -3,15 +3,13 @@ import * as React from 'react'
 import { useSelector } from 'react-redux'
 import { selectAllTodos } from '../store/selectors/todosSelectors'
 import { Todo } from '../types/Todo'
+import { TodoListItem } from '../components/todoListItem/TodoListItem'
 
 export const HomeScreen = () => {
   const todos = useSelector(selectAllTodos)
 
   const renderTodo: ListRenderItem<Todo> = ({ item }) => (
-    <Text>
-      {item.completed ? 'DONE ' : ''}
-      {item.title}
-    </Text>
+    <TodoListItem title={item.title} completed={item.completed} />
   )
 
   return (
