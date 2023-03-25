@@ -6,20 +6,16 @@ import { CheckBox } from '../checkbox/checkbox'
 import { useTheme } from 'styled-components/native'
 
 interface TodoListItemProps {
-  index: number
+  id: number
   title: string
   completed: boolean
 }
 
-export const TodoListItem = ({
-  index,
-  title,
-  completed,
-}: TodoListItemProps) => {
+export const TodoListItem = ({ id, title, completed }: TodoListItemProps) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
-  const toggle = () => dispatch(todoToggled(index))
+  const toggle = () => dispatch(todoToggled(id))
 
   return (
     <Container>

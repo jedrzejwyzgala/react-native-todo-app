@@ -10,7 +10,7 @@ export const HomeScreen = () => {
   const todos = useSelector(selectAllTodos)
 
   const renderTodo: ListRenderItem<Todo> = ({ item, index }) => (
-    <TodoListItem index={index} title={item.title} completed={item.completed} />
+    <TodoListItem id={index} title={item.title} completed={item.completed} />
   )
 
   return (
