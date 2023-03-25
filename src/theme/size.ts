@@ -1,7 +1,7 @@
-export const fontSize = {
-  xs: 8,
-  s: 10,
-  m: 13,
-  l: 15,
-  xl: 21,
+export enum FontSize {
+  xs = '12px',
+  s = '14px',
+  m = '18px',
+  l = '23px',
+  xl = '30px',
 }

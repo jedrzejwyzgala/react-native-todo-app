@@ -1,10 +1,10 @@
-import { colors } from './colors'
-import { fontSize } from './size'
+import { Colors } from './colors'
+import { FontSize } from './size'
 
 declare module 'styled-components/native' {
   export interface DefaultTheme {
     isDark: boolean
-    colors: typeof colors
-    fontSize: typeof fontSize
+    colors: typeof Colors
+    fontSize: typeof FontSize
   }
 }
