@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
 import * as React from 'react'
 import CheckBox from '@react-native-community/checkbox'
 import { useAppDispatch } from '../../store/store'
 import { todoToggled } from '../../store/reducers/todosReducer'
+import { Container, Label } from './TodoListItem.styled'
 
 interface TodoListItemProps {
   index: number
@@ -16,21 +16,13 @@ export const TodoListItem = ({
   completed,
 }: TodoListItemProps) => {
   const dispatch = useAppDispatch()
-  const titleStyle = { color: completed ? 'green' : 'black' }
 
   const toggle = () => dispatch(todoToggled(index))
 
   return (
-    <View style={styles.container}>
+    <Container>
       <CheckBox value={completed} onChange={toggle} />
-      <Text style={titleStyle}>{title}</Text>
-    </View>
+      <Label completed={completed}>{title}</Label>
+    </Container>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-})
