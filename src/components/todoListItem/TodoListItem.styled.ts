@@ -10,6 +10,9 @@ interface LabelProps {
 }
 
 export const Label = styled.Text<LabelProps>`
+  font-size: ${(props) => props.theme.fontSize.m};
+  margin-left: 8px;
+  padding-vertical: 6px;
   color: ${(props) =>
     props.completed
       ? props.theme.colors.successPrimary
