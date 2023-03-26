@@ -3,11 +3,15 @@ import * as React from 'react'
 import { useSelector } from 'react-redux'
 import { TodoListItem } from '../components/todoListItem/TodoListItem'
 import { Container } from './HomeScreen.styled'
-import { todosEntitySelectors } from '../store/selectors/todosSelectors'
+import {
+  selectCompleted,
+  selectUncompleted,
+} from '../store/selectors/todosSelectors'
 import { Todo } from '../types/Todo'
 
 export const HomeScreen = () => {
-  const todos = useSelector(todosEntitySelectors.selectAll)
+  const completedTodos = useSelector(selectCompleted)
+  const uncompletedTodos = useSelector(selectUncompleted)
 
   const renderTodo: ListRenderItem<Todo> = ({ item }) => (
     <TodoListItem id={item.id} title={item.title} completed={item.completed} />
@@ -16,10 +20,11 @@ export const HomeScreen = () => {
   return (
     <Container>
       <FlatList
-        data={todos}
+        data={completedTodos}
         renderItem={renderTodo}
         ListFooterComponent={<TodoListItem />}
       />
+      <FlatList data={uncompletedTodos} renderItem={renderTodo} />
     </Container>
   )
 }
