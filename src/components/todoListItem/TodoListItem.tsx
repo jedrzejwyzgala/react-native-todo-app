@@ -6,7 +6,7 @@ import { CheckBox } from '../checkbox/checkbox'
 import { useTheme } from 'styled-components/native'
 
 interface TodoListItemProps {
-  id: number
+  id: string
   title: string
   completed: boolean
 }
