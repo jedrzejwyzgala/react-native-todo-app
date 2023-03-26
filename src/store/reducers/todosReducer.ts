@@ -1,31 +1,49 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 import { Todo } from '../../types/Todo'
 
-interface TodosState {
-  all: Array<Todo>
-}
+export const todosAdapter = createEntityAdapter<Todo>({
+  sortComparer: (a, b) => {
+    if (!a.completed && b.completed) return -1
+    if (a.completed && !b.completed) return 1
+    return 0
+  },
+})
 
-const initialState: TodosState = {
-  all: [
-    { title: 'Take out trash', completed: false },
-    { title: 'Read a chapter of a book', completed: true },
-  ],
+const mockInitialState = {
+  ids: [1, 2, 3],
+  entities: {
+    1: {
+      id: 1,
+      title: 'Read a chapter of a book',
+      completed: false,
+      created: Date.now(),
+      updated: Date.now(),
+    },
+    2: {
+      id: 2,
+      title: 'Take out trash',
+      completed: false,
+      created: Date.now(),
+      updated: Date.now(),
+    },
+    3: {
+      id: 3,
+      title: 'Study for 45 minutes',
+      completed: false,
+      created: Date.now(),
+      updated: Date.now(),
+    },
+  },
 }
 
 const todosSlice = createSlice({
   name: 'todos',
-  initialState,
+  initialState: todosAdapter.getInitialState(mockInitialState),
   reducers: {
-    todoAdded: (state, action: PayloadAction<Todo>) => {
-      state.all.push(action.payload)
-    },
-    todoToggled: (state, action: PayloadAction<number>) => {
-      const index = action.payload
-      const todo = state.all[index]
-      todo.completed = !todo.completed
-    },
+    todoAdded: todosAdapter.addOne,
+    todoUpdated: todosAdapter.updateOne,
   },
 })
 
-export const { todoAdded, todoToggled } = todosSlice.actions
+export const { todoAdded, todoUpdated } = todosSlice.actions
 export default todosSlice.reducer

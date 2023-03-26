@@ -1,3 +1,6 @@
+import { todosAdapter } from '../reducers/todosReducer'
 import { RootState } from '../store'
 
-export const selectAllTodos = (state: RootState) => state.todos.all
+export const todosEntitySelectors = todosAdapter.getSelectors<RootState>(
+  (state) => state.todos,
+)

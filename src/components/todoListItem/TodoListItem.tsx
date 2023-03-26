@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useAppDispatch } from '../../store/store'
-import { todoToggled } from '../../store/reducers/todosReducer'
+import { todoUpdated } from '../../store/reducers/todosReducer'
 import { Container, Label } from './TodoListItem.styled'
 import { CheckBox } from '../checkbox/checkbox'
 import { useTheme } from 'styled-components/native'
@@ -15,7 +15,8 @@ export const TodoListItem = ({ id, title, completed }: TodoListItemProps) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
-  const toggle = () => dispatch(todoToggled(id))
+  const toggle = () =>
+    dispatch(todoUpdated({ id, changes: { completed: !completed } }))
 
   return (
     <Container>
