@@ -16,7 +16,7 @@ export const todosAdapter = createEntityAdapter<Todo>({
 })
 
 const mockInitialState = {
-  ids: ['1', '2', '3'],
+  ids: ['1', '2', '3', '4', '5'],
   entities: {
     '1': {
       id: '1',
@@ -36,6 +36,20 @@ const mockInitialState = {
       id: '3',
       title: 'Study for 45 minutes',
       completed: false,
+      created: Date.now(),
+      updated: Date.now(),
+    },
+    '4': {
+      id: '4',
+      title: 'Wash the car',
+      completed: true,
+      created: Date.now(),
+      updated: Date.now(),
+    },
+    '5': {
+      id: '5',
+      title: 'Go shopping',
+      completed: true,
       created: Date.now(),
       updated: Date.now(),
     },
