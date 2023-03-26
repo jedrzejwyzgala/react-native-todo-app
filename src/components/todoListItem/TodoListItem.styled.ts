@@ -1,15 +1,17 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
-  flex-direction: row;
-  align-items: center;
-`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+})``
 
 interface LabelProps {
   completed: boolean
 }
 
-export const Label = styled.TextInput<LabelProps>`
+export const Title = styled.TextInput<LabelProps>`
   font-size: ${(props) => props.theme.fontSize.m};
   margin-left: 8px;
   flex: 1;

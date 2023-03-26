@@ -1,9 +1,14 @@
 import * as React from 'react'
 import { useAppDispatch } from '../../store/store'
-import { todoAdded, todoUpdated } from '../../store/reducers/todosReducer'
-import { Container, Label } from './TodoListItem.styled'
+import {
+  todoAdded,
+  todoRemoved,
+  todoUpdated,
+} from '../../store/reducers/todosReducer'
+import { Container, Title } from './TodoListItem.styled'
 import { CheckBox } from '../checkbox/checkbox'
 import { useTheme } from 'styled-components/native'
+import { Button } from 'react-native'
 
 interface TodoListItemProps {
   id?: string
@@ -20,9 +25,13 @@ export const TodoListItem = ({
   const theme = useTheme()
 
   const [title, setTitle] = React.useState(initialTitle)
+  const [active, setActive] = React.useState(false)
+
+  const activate = () => setActive(true)
 
   const update = () => {
     if (id) dispatch(todoUpdated({ id, changes: { title } }))
+    setActive(false)
   }
 
   const toggle = () => {
@@ -35,20 +44,27 @@ export const TodoListItem = ({
     setTitle('')
   }
 
+  const remove = () => {
+    if (id) dispatch(todoRemoved(id))
+  }
+
   const save = id ? update : create
+  const showCloseButton = id && (completed || active)
 
   return (
     <Container>
       <CheckBox value={completed} onChange={toggle} size={theme.fontSize.l} />
-      <Label
+      <Title
         completed={completed}
         onChangeText={setTitle}
         onSubmitEditing={save}
         onBlur={save}
         blurOnSubmit={!!id}
+        onFocus={activate}
       >
         {title}
-      </Label>
+      </Title>
+      {!!showCloseButton && <Button title="✕" onPress={remove} />}
     </Container>
   )
 }

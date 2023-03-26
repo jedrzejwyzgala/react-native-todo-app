@@ -59,8 +59,9 @@ const todosSlice = createSlice({
         id: action.payload.id,
         changes: { ...action.payload.changes, updated: Date.now() },
       }),
+    todoRemoved: todosAdapter.removeOne,
   },
 })
 
-export const { todoAdded, todoUpdated } = todosSlice.actions
+export const { todoAdded, todoUpdated, todoRemoved } = todosSlice.actions
 export default todosSlice.reducer
