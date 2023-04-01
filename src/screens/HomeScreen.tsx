@@ -1,13 +1,14 @@
-import { FlatList, ListRenderItem } from 'react-native'
+import { ListRenderItem } from 'react-native'
 import * as React from 'react'
 import { useSelector } from 'react-redux'
 import { TodoListItem } from '../components/todoListItem/TodoListItem'
-import { Container } from './HomeScreen.styled'
+import { Container, extraStyles, FlatListStyled } from './HomeScreen.styled'
 import {
   selectCompleted,
   selectUncompleted,
 } from '../store/selectors/todosSelectors'
 import { Todo } from '../types/Todo'
+import Animated, { Layout } from 'react-native-reanimated'
 
 export const HomeScreen = () => {
   const completedTodos = useSelector(selectCompleted)
@@ -19,12 +20,23 @@ export const HomeScreen = () => {
 
   return (
     <Container>
-      <FlatList
+      <Animated.FlatList
         data={completedTodos}
         renderItem={renderTodo}
         ListFooterComponent={<TodoListItem />}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(todo) => todo.id}
+        itemLayoutAnimation={Layout.duration(300).delay(300)}
+        contentContainerStyle={extraStyles.flatListContainer}
       />
-      <FlatList data={uncompletedTodos} renderItem={renderTodo} />
+      <Animated.FlatList
+        data={uncompletedTodos}
+        renderItem={renderTodo}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(todo) => todo.id}
+        itemLayoutAnimation={Layout.duration(300).delay(300)}
+        contentContainerStyle={extraStyles.flatListContainer}
+      />
     </Container>
   )
 }

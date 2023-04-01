@@ -9,7 +9,7 @@ import { Container, Title } from './TodoListItem.styled'
 import { CheckBox } from '../checkbox/checkbox'
 import { useTheme } from 'styled-components/native'
 import { Button } from 'react-native'
-import Animated, { FadeInLeft, FadeOutRight } from 'react-native-reanimated'
+import { FadeIn, FadeOut } from 'react-native-reanimated'
 
 interface TodoListItemProps {
   id?: string
@@ -26,20 +26,6 @@ export const TodoListItem = ({
   const theme = useTheme()
   const [title, setTitle] = React.useState(initialTitle)
   const [active, setActive] = React.useState(false)
-
-  // const offsetTarget = useSharedValue(0)
-  // const animatedStyles = useAnimatedStyle(() => {
-  //   return {
-  //     transform: [
-  //       {
-  //         translateX: withTiming(offsetTarget.value, {
-  //           duration: 300,
-  //           easing: Easing.linear,
-  //         }),
-  //       },
-  //     ],
-  //   }
-  // })
 
   const activate = () => setActive(true)
 
@@ -67,21 +53,29 @@ export const TodoListItem = ({
   const showCloseButton = id && (completed || active)
 
   return (
-    <Animated.View exiting={FadeOutRight} entering={FadeInLeft}>
-      <Container>
-        <CheckBox value={completed} onChange={toggle} size={theme.fontSize.l} />
-        <Title
-          completed={completed}
-          onChangeText={setTitle}
-          onSubmitEditing={save}
-          onBlur={save}
-          blurOnSubmit={!!id}
-          onFocus={activate}
-        >
-          {title}
-        </Title>
-        {!!showCloseButton && <Button title="✕" onPress={remove} />}
-      </Container>
-    </Animated.View>
+    <Container
+      entering={
+        completed ? FadeIn.duration(300).delay(300) : FadeIn.duration(300)
+      }
+      exiting={FadeOut.duration(300)}
+    >
+      <CheckBox
+        value={completed}
+        onChange={toggle}
+        size={theme.fontSize.l}
+        animationDuration={0}
+      />
+      <Title
+        completed={completed}
+        onChangeText={setTitle}
+        onSubmitEditing={save}
+        onBlur={save}
+        blurOnSubmit={!!id}
+        onFocus={activate}
+      >
+        {title}
+      </Title>
+      {!!showCloseButton && <Button title="✕" onPress={remove} />}
+    </Container>
   )
 }
