@@ -10,7 +10,9 @@ interface LabelProps {
   completed: boolean
 }
 
-export const Title = styled.TextInput<LabelProps>`
+export const Title = styled.TextInput.attrs((props) => ({
+  placeholderTextColor: props.theme.colors.textSecondary,
+}))<LabelProps>`
   font-size: ${(props) => props.theme.fontSize.m};
   margin-left: 8px;
   flex: 1;

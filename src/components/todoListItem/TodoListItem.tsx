@@ -75,6 +75,7 @@ export const TodoListItem = ({
         onBlur={save}
         blurOnSubmit={!!id}
         onFocus={activate}
+        placeholder="What needs to be done?"
       >
         {title}
       </Title>
