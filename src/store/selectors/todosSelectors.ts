@@ -8,10 +8,18 @@ export const todosEntitySelectors = todosAdapter.getSelectors<RootState>(
 
 export const selectCompleted = createSelector(
   [todosEntitySelectors.selectAll],
-  (all) => all.filter((todo) => !todo.completed),
+  (all) => all.filter(({ completed }) => completed),
+)
+
+export const selectCompletedIds = createSelector(
+  [selectCompleted],
+  (completed) => completed.map(({ id }) => id),
 )
 
 export const selectUncompleted = createSelector(
   [todosEntitySelectors.selectAll],
-  (all) => all.filter((todo) => todo.completed),
+  (all) =>
+    all
+      .filter(({ completed }) => !completed)
+      .sort((a, b) => a.updated - b.updated),
 )

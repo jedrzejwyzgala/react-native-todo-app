@@ -7,13 +7,7 @@ import {
 import { Todo } from '../../types/Todo'
 import randomUUID from '../../utils/randomUUID'
 
-export const todosAdapter = createEntityAdapter<Todo>({
-  sortComparer: (a, b) => {
-    if (!a.completed && b.completed) return -1
-    if (a.completed && !b.completed) return 1
-    return 0
-  },
-})
+export const todosAdapter = createEntityAdapter<Todo>()
 
 const todosSlice = createSlice({
   name: 'todos',
@@ -33,8 +27,10 @@ const todosSlice = createSlice({
         changes: { ...action.payload.changes, updated: Date.now() },
       }),
     todoRemoved: todosAdapter.removeOne,
+    completedTodosCleared: todosAdapter.removeMany,
   },
 })
 
-export const { todoAdded, todoUpdated, todoRemoved } = todosSlice.actions
+export const { todoAdded, todoUpdated, todoRemoved, completedTodosCleared } =
+  todosSlice.actions
 export default todosSlice.reducer
