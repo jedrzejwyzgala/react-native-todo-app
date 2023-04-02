@@ -1,9 +1,9 @@
 import * as React from 'react'
-
+import { PersistGate } from 'redux-persist/integration/react'
 import { NavigationContainer } from '@react-navigation/native'
 import { MainNavigator } from './navigation/MainNavigator'
 import { Provider } from 'react-redux'
-import store from './store/store'
+import store, { persistor } from './store/store'
 import { theme } from './theme/theme'
 import { ThemeProvider } from 'styled-components/native'
 import { AppSafeAreaView, AppStatusBar } from './App.styled'
@@ -11,14 +11,16 @@ import { AppSafeAreaView, AppStatusBar } from './App.styled'
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <AppSafeAreaView>
-            <AppStatusBar />
-            <MainNavigator />
-          </AppSafeAreaView>
-        </NavigationContainer>
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <NavigationContainer>
+            <AppSafeAreaView>
+              <AppStatusBar />
+              <MainNavigator />
+            </AppSafeAreaView>
+          </NavigationContainer>
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   )
 }
