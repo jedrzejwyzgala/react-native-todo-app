@@ -1,3 +1,3 @@
-# react-native-todo-app
+# React Native Todo App
 
 Mobile app for tracking simple tasks.
