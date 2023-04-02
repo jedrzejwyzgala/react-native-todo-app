@@ -30,7 +30,9 @@ export const TodoListItem = ({
   const activate = () => setActive(true)
 
   const update = () => {
-    if (id) dispatch(todoUpdated({ id, changes: { title } }))
+    if (id && title !== initialTitle) {
+      dispatch(todoUpdated({ id, changes: { title } }))
+    }
     setActive(false)
   }
 
@@ -60,6 +62,7 @@ export const TodoListItem = ({
       exiting={FadeOut.duration(300)}
     >
       <CheckBox
+        disabled={!id}
         value={completed}
         onChange={toggle}
         size={theme.fontSize.l}
@@ -75,7 +78,9 @@ export const TodoListItem = ({
       >
         {title}
       </Title>
-      {!!showCloseButton && <Button title="✕" onPress={remove} />}
+      {!!showCloseButton && (
+        <Button title="✕" onPress={remove} color={theme.colors.errorPrimary} />
+      )}
     </Container>
   )
 }
